@@ -1,0 +1,15 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    background: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.app {
+    height: 100vh;
+    background: #eee;
+    padding: 1em;
+}

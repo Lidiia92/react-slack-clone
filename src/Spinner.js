@@ -4,7 +4,7 @@ import {Loader, Dimmer} from 'semantic-ui-react';
 
 const Spinner = () => (
     <Dimmer active>
-        <Loader size="huge" content={"Preaparing Chat..."} />
+        <Loader size="huge" content={"Prepaparing Chat..."} />
     </Dimmer>
 );
 

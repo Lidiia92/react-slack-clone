@@ -16,7 +16,7 @@ import {createStore} from 'redux';
 import {Provider, connect} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import rootReducer from './reducers';
-import {setUser} from './actions';
+import {setUser, clearUser} from './actions';
 
 //Components
 import App from "./components/App";
@@ -35,6 +35,9 @@ class Root extends React.Component {
       if (user) {
         this.props.setUser(user);
         this.props.history.push("/");
+      } else {
+        this.props.history.push("/login");
+        this.props.clearUser();
       }
     });
   }
@@ -56,7 +59,8 @@ const mapStateFromProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUser: (user) => dispatch(setUser(user))
+    setUser: (user) => dispatch(setUser(user)),
+    clearUser: () => dispatch(clearUser())
   };
 };
 

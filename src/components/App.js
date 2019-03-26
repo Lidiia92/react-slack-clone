@@ -30,4 +30,5 @@ const mapStateFromProps = state => ({
     currentUser: state.user.currentUser
 });
 
+
 export default connect(mapStateFromProps)(App);

@@ -12,7 +12,9 @@ class Channels extends React.Component {
         modal: false,
         channelName: '',
         channelDetails: '',
-        channelsRef: firebase.database().ref('channels')
+        channelsRef: firebase.database().ref('channels'),
+        firstload: true,
+        activeChannel: ''
     }
 
     componentDidMount() {
@@ -26,8 +28,21 @@ class Channels extends React.Component {
             this.setState({
                 ...this.state,
                 channels: loadedChannels
-            })
-        })
+            },
+            () => this.setFirstChannel());
+        });
+    }
+
+    setFirstChannel = () => {
+        const firstChannel = this.state.channels[0];
+        if(this.state.firstload && this.state.channels.length > 0) {
+            this.setActiveChannel(firstChannel);
+            this.props.setCurrentChannel(firstChannel);
+        }
+        this.setState({
+            firstload: false,
+
+        });
     }
 
     openModal = () => {
@@ -92,13 +107,20 @@ class Channels extends React.Component {
     }
 
     changeChannel = channel => {
+        this.setActiveChannel(channel);
         this.props.setCurrentChannel(channel);
+    }
+
+    setActiveChannel = (channel) => {
+        this.setState({
+            activeChannel: channel.id
+        })
     }
 
     displayChannels = (channels) => {
         const displayedChannels = channels.length > 0 && channels.map(channel => (
         
-            <Menu.Item key={channel.id} onClick={() => this.changeChannel(channel)} name={channel.name} style={{opacity: '0.7'}}>
+            <Menu.Item key={channel.id} onClick={() => this.changeChannel(channel)} name={channel.name} style={{opacity: '0.7'}} active={channel.id === this.state.activeChannel}>
             
                 # {channel.name}
             

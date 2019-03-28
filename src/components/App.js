@@ -11,12 +11,12 @@ import MetaPanel from './MetaPanel/MetaPanel';
 const App = (props) => (
   <Grid columns='equal' className="app" style={{background: "#eee"}}>
 
-	<Grid.Column>
+	<Grid.Column width={3}>
        	<ColorPanel />
         <SidePanel currentUser={props.currentUser}/>
 	</Grid.Column>	
 
-    <Grid.Column style={{marginLeft: 320, marginTop: 15}}>
+    <Grid.Column width={8} style={{marginTop: 15}}>
         	<Messages />
 	</Grid.Column>
 	  

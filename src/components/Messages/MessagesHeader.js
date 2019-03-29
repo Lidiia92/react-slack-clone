@@ -16,7 +16,7 @@ class MessagesHeader extends React.Component {
 
                 {/* Channel Search Input */}
                 <Header floated="right">
-                    <Input size="mini" icon="search" name="searchTerm" placeHolder="Search Messages"/>
+                    <Input size="mini" icon="search" name="searchTerm" placeholder="Search Messages"/>
                 </Header>
             </Segment>
         );

@@ -34,3 +34,10 @@ body,html {
 .ui.comments {
     max-width: none !important;
 }
+
+/*Message.js */
+
+.message_self {
+    border-left: 2px solid orange;
+    padding-left: 8px;
+}

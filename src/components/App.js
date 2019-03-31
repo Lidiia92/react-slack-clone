@@ -9,18 +9,18 @@ import Messages from './Messages/Messages';
 import MetaPanel from './MetaPanel/MetaPanel';
 
 const App = (props) => (
-  <Grid columns='equal' className="app" style={{background: "#eee"}}>
+  <Grid  className="app" style={{background: "#eee"}}>
 
-	<Grid.Column width={3}>
+	<Grid.Column >
        	<ColorPanel />
         <SidePanel currentUser={props.currentUser} key={props.currentUser && props.currentUser.uid}/>
 	</Grid.Column>	
 
-    <Grid.Column width={8} style={{marginTop: 15}}>
+    <Grid.Column width={8} style={{marginLeft: 320, marginTop: 15, left: 0, position: "fixed"}}>
         	<Messages currentChannel={props.currentChannel} key={props.currentChannel && props.currentChannel.id} currentUser={props.currentUser}/>
 	</Grid.Column>
 	  
-    <Grid.Column width={4} style={{marginTop: 15}}>
+    <Grid.Column  style={{marginTop: 15}}>
         	<MetaPanel />
     </Grid.Column>
   </Grid>

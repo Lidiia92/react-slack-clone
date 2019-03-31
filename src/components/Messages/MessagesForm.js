@@ -57,14 +57,14 @@ class MessagesForm extends React.Component {
 
     render() {
 
-        const {errors} = this.state;
+        const {errors, loading} = this.state;
 
         return(
             <Segment className="messages__form">
                 <Input fluid name="message" style={{marginBottom: '0.7em'}} label={<Button icon="add" />} labelPosition="left" placeholder="Write your message" onChange={this.handleChange} value={this.state.message} className={errors.some( error => error.message.includes('message')) ? 'error' : ''}/>
 
                 <Button.Group icon width="2">
-                    <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage}/>
+                    <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage} disabled={loading}/>
                     <Button color="green" content="Upload Media" labelPosition="right" icon="cloud upload"/>
                 </Button.Group>
             </Segment>

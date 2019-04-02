@@ -17,7 +17,8 @@ body,html {
 /*Messages.js */
 
 .messages {
-    height: 440px;
+    min-height: 440px;
+    height: 560px;
     overflow-y: scroll;
 }
 
@@ -44,4 +45,10 @@ body,html {
 
 .message__image {
     padding: 1em;
+}
+
+
+/* ProgressBar.js */
+.progress__bar {
+    margin: 0.3em 0 0 0 !important;
 }

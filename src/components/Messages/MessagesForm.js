@@ -3,6 +3,7 @@ import firebase from '../../firebase';
 import {Segment, Button, Input} from 'semantic-ui-react';
 
 import FileModal from './FileModal';
+import MetaPanel from '../MetaPanel/MetaPanel';
 
 class MessagesForm extends React.Component {
 
@@ -69,6 +70,10 @@ class MessagesForm extends React.Component {
         }
     }
 
+    uploadFile = (file, metadata) => {
+       console.log('uploadFile', file, metadata)
+    }
+
 
     render() {
 
@@ -81,7 +86,7 @@ class MessagesForm extends React.Component {
                 <Button.Group icon width="2">
                     <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage} disabled={loading}/>
                     <Button color="green" content="Upload Media" labelPosition="right" icon="cloud upload" onClick={this.openModal}/>
-                    <FileModal modal={modal} closeModal={this.closeModal}/>
+                    <FileModal modal={modal} closeModal={this.closeModal} uploadFile={this.uploadFile}/>
                 </Button.Group>
             </Segment>
         );

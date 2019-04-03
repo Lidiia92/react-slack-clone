@@ -154,7 +154,7 @@ class MessagesForm extends React.Component {
 
                 <Button.Group icon width="2">
                     <Button color="orange" content="Add Reply" labelPosition="left" icon="edit" onClick={this.sendMessage} disabled={loading}/>
-                    <Button color="green" content="Upload Media" labelPosition="right" icon="cloud upload" onClick={this.openModal}/>
+                    <Button color="teal" content="Upload Media" labelPosition="right" icon="cloud upload" onClick={this.openModal} disabled={uploadState === "uploading"}/>
                 </Button.Group>
                 <FileModal modal={modal} closeModal={this.closeModal} uploadFile={this.uploadFile}/>
                 <ProgressBar uploadState={uploadState} percentUploaded={percentUploaded}/>

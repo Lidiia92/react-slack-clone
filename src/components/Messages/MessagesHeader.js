@@ -3,7 +3,7 @@ import {Header, Segment, Input, Icon} from 'semantic-ui-react';
 
 class MessagesHeader extends React.Component {
     render() {
-        const {displayChannelName, numUsers} = this.props;
+        const {displayChannelName, numUsers, handleSearchChange} = this.props;
     
 
         return (
@@ -19,7 +19,7 @@ class MessagesHeader extends React.Component {
 
                 {/* Channel Search Input */}
                 <Header floated="right">
-                    <Input size="mini" icon="search" name="searchTerm" placeholder="Search Messages"/>
+                    <Input size="mini" icon="search" name="searchTerm" placeholder="Search Messages" onChange={handleSearchChange}/>
                 </Header>
             </Segment>
         );

@@ -59,3 +59,11 @@ body,html {
 .menu {
     padding-bottom: 2em;
 }
+
+.online {
+    color: green;
+}
+
+.offline {
+    color: gray;
+}

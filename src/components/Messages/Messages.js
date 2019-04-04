@@ -85,24 +85,25 @@ class Messages extends React.Component {
         const filteredMessages = [];
 
         const searchedMessages = channelMessages.map(message => {
-            if(message.content && message.content.match(regex)) {
+            if(message.content && message.content.match(regex) || message.user.name.match(regex)) {
                 filteredMessages.push(message);
             } 
 
             this.setState({
                 searchResults: filteredMessages
             })
+            setTimeout(() => this.setState({searchLoading: false}), 800)
         });
 
     }
 
     render() {
-        const {messagesRef, channel, currentUser, messages, searchResults, searchTerm} = this.state;
+        const {messagesRef, channel, currentUser, messages, searchResults, searchTerm, searchLoading} = this.state;
 
         return (
             <React.Fragment>
                
-                    <MessagesHeader handleSearchChange={this.handleSearchChange} displayChannelName={this.displayChannelName(this.state.channel)} numUsers={this.state.numUsers}/>
+                    <MessagesHeader searchLoading={searchLoading} handleSearchChange={this.handleSearchChange} displayChannelName={this.displayChannelName(this.state.channel)} numUsers={this.state.numUsers}/>
                     <Segment >
                         <Comment.Group className="messages">
                             {searchTerm ? this.displayMessages(searchResults) : this.displayMessages(messages)}

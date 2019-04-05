@@ -38,7 +38,8 @@ class Messages extends React.Component {
 
     addMessageListener = channelId => {
         let loadedMessages = [];
-        this.state.messagesRef.child(channelId).on('child_added', snap => {
+        const ref = this.getMessagesRef();
+        ref.child(channelId).on('child_added', snap => {
             loadedMessages.push(snap.val());
             this.setState({
                 messages: loadedMessages,
@@ -101,6 +102,11 @@ class Messages extends React.Component {
 
     }
 
+    getMessagesRef = () => {
+        const {messagesRef, privateMessagesRef, privateChannel} = this.state;
+        return privateChannel ? privateMessagesRef : messagesRef;
+    }
+
     render() {
         const {messagesRef, channel, currentUser, messages, searchResults, searchTerm, searchLoading, privateChannel} = this.state;
 
@@ -114,7 +120,7 @@ class Messages extends React.Component {
                         </Comment.Group>
                     </Segment>
 
-                <MessagesForm privateChannel={privateChannel} messagesRef={messagesRef} currentChannel={channel} currentUser={currentUser}/>
+                <MessagesForm getMesagesRef={this.getMessagesRef} privateChannel={privateChannel} messagesRef={messagesRef} currentChannel={channel} currentUser={currentUser}/>
             </React.Fragment>
         );
     }

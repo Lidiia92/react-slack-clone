@@ -60,14 +60,14 @@ class MessagesForm extends React.Component {
     }
 
     sendMessage = async () => {
-        const { messagesRef } = this.props;
+        const { getMesagesRef } = this.props;
         const newMessage = this.state.message;
         const { channel } = this.state;
 
         if(newMessage) {
             try {
                 this.setState({loading: true});
-                const added = await messagesRef.child(channel.id).push().set(this.createMessage());
+                const added = await getMesagesRef().child(channel.id).push().set(this.createMessage());
                 this.setState({loading: false, message: '', errors: []})
             } catch (err) {
                 console.error(err);
@@ -90,7 +90,7 @@ class MessagesForm extends React.Component {
 
     uploadFile = (file, metadata) => {
         const pathToUpload = this.state.channel.id;
-        const ref = this.props.messagesRef;
+        const ref = this.props.getMesagesRef();
         const filePath = `${this.getPath()}/${uuidv4()}.jpg`;
     
         this.setState(

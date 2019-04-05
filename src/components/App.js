@@ -17,7 +17,7 @@ const App = (props) => (
 	</Grid.Column>	
 
     <Grid.Column width={8} style={{marginLeft: 320, marginTop: 15, left: 0, position: "fixed"}}>
-        	<Messages currentChannel={props.currentChannel} key={props.currentChannel && props.currentChannel.id} currentUser={props.currentUser}/>
+        	<Messages isPrivateChannel={props.isPrivateChannel} currentChannel={props.currentChannel} key={props.currentChannel && props.currentChannel.id} currentUser={props.currentUser}/>
 	</Grid.Column>
 	  
     <Grid.Column  style={{marginTop: 15}}>
@@ -28,7 +28,8 @@ const App = (props) => (
 
 const mapStateToProps = state => ({
 	currentUser: state.user.currentUser,
-	currentChannel: state.channel.currentChannel
+	currentChannel: state.channel.currentChannel,
+	isPrivateChannel: state.channel.isPrivateChannel
 });
 
 

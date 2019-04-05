@@ -17,7 +17,9 @@ class Messages extends React.Component {
         numUsers: '',
         searchTerm: '',
         searchLoading: false,
-        searchResults: []
+        searchResults: [],
+        privateChannel: this.props.isPrivateChannel ,
+        privateMessagesRef: firebase.database().ref('privateMessages')
 
     }
 
@@ -54,7 +56,9 @@ class Messages extends React.Component {
     }
 
     
-    displayChannelName = channel => channel ? `#${channel.name}` : '';
+    displayChannelName = channel => {
+        return channel ? `${this.state.privateChannel ? '@' : '#'}${channel.name}` : '';
+    }
 
     countUniqueUsers = (messages) => {
         const uniqueNames = [];
@@ -98,19 +102,19 @@ class Messages extends React.Component {
     }
 
     render() {
-        const {messagesRef, channel, currentUser, messages, searchResults, searchTerm, searchLoading} = this.state;
+        const {messagesRef, channel, currentUser, messages, searchResults, searchTerm, searchLoading, privateChannel} = this.state;
 
         return (
             <React.Fragment>
                
-                    <MessagesHeader searchLoading={searchLoading} handleSearchChange={this.handleSearchChange} displayChannelName={this.displayChannelName(this.state.channel)} numUsers={this.state.numUsers}/>
+                    <MessagesHeader privateChannel={privateChannel} searchLoading={searchLoading} handleSearchChange={this.handleSearchChange} displayChannelName={this.displayChannelName(this.state.channel)} numUsers={this.state.numUsers}/>
                     <Segment >
                         <Comment.Group className="messages">
                             {searchTerm ? this.displayMessages(searchResults) : this.displayMessages(messages)}
                         </Comment.Group>
                     </Segment>
 
-                <MessagesForm messagesRef={messagesRef} currentChannel={channel} currentUser={currentUser}/>
+                <MessagesForm privateChannel={privateChannel} messagesRef={messagesRef} currentChannel={channel} currentUser={currentUser}/>
             </React.Fragment>
         );
     }

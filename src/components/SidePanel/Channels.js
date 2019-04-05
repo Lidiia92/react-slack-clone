@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { setCurrentChannel } from '../../actions/index';
+import { setCurrentChannel, setPrivateChannel } from '../../actions/index';
 import firebase from '../../firebase';
 import { Menu, Icon, Modal, Form, Input, Button } from 'semantic-ui-react';
 
@@ -116,6 +116,7 @@ class Channels extends React.Component {
     changeChannel = channel => {
         this.setActiveChannel(channel);
         this.props.setCurrentChannel(channel);
+        this.props.setPrivateChannel(false);
     }
 
     setActiveChannel = (channel) => {
@@ -185,6 +186,7 @@ class Channels extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
       setCurrentChannel: (channel) => dispatch(setCurrentChannel(channel)),
+      setPrivateChannel: (isPrivate) => dispatch(setPrivateChannel(isPrivate))
     };
   };
 

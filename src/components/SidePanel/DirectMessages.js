@@ -1,5 +1,7 @@
 import React from 'react';
 import firebase from '../../firebase';
+import {connect} from 'react-redux';
+import {setCurrentChannel, setPrivateChannel} from '../../actions';
 import {Menu, Icon} from 'semantic-ui-react';
 
 
@@ -68,7 +70,22 @@ class DirectMessages extends React.Component {
         this.setState({users: updatedUsers});
     }
 
-    isUserOnline = user => user.status === 'online'
+    isUserOnline = user => user.status === 'online';
+
+    changeChannel = user => {
+        const channelId = this.getChannelId(user.uid);
+        const channelData = {
+            id: channelId,
+            name: user.name
+        };
+        this.props.setCurrentChannel(channelData);
+        this.props.setPrivateChannel(true);
+    }
+
+    getChannelId = (userId) => {
+        const currentUserId = this.state.user.uid;
+        return userId < currentUserId ? `${userId}/${currentUserId}` : `${currentUserId}/${userId}`;
+    }
 
     render() {
         const {users} = this.state
@@ -81,7 +98,7 @@ class DirectMessages extends React.Component {
                     </span>({' '})
                     ({users.length})
                 </Menu.Item>
-                {users.map(user => <Menu.Item key={user.uid} onClick={() => console.log(user)} style={{opacity: '0.7', fontStyle: 'italic'}}>
+                {users.map(user => <Menu.Item key={user.uid} onClick={() => this.changeChannel(user)} style={{opacity: '0.7', fontStyle: 'italic'}}>
                     <Icon name="circle" className={this.isUserOnline(user) ? 'online' : 'offline'}/>
                     @ {user.name}
                 </Menu.Item>)}
@@ -90,4 +107,11 @@ class DirectMessages extends React.Component {
     }
 }
 
-export default DirectMessages;
+const mapDispatchToProps = dispatch => {
+    return {
+      setCurrentChannel: (channelData) => dispatch(setCurrentChannel(channelData)),
+      setPrivateChannel: (isPrivateChannel) => dispatch(setPrivateChannel(isPrivateChannel))
+    };
+  };
+
+export default connect(null, mapDispatchToProps)(DirectMessages);

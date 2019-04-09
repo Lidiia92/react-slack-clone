@@ -8,6 +8,7 @@ import {Menu, Icon} from 'semantic-ui-react';
 class DirectMessages extends React.Component {
 
     state = {
+        activeChannel: '',
         users: [],
         user: this.props.currentUser,
         usersRef: firebase.database().ref('users'),
@@ -80,6 +81,7 @@ class DirectMessages extends React.Component {
         };
         this.props.setCurrentChannel(channelData);
         this.props.setPrivateChannel(true);
+        this.setActiveChannel(user.uid);
     }
 
     getChannelId = (userId) => {
@@ -87,8 +89,12 @@ class DirectMessages extends React.Component {
         return userId < currentUserId ? `${userId}/${currentUserId}` : `${currentUserId}/${userId}`;
     }
 
+    setActiveChannel = (userId) => {
+        this.setState({activeChannel: userId});
+    }
+
     render() {
-        const {users} = this.state
+        const {users, activeChannel} = this.state
 
         return (
             <Menu.Menu className="menu">
@@ -98,7 +104,7 @@ class DirectMessages extends React.Component {
                     </span>({' '})
                     ({users.length})
                 </Menu.Item>
-                {users.map(user => <Menu.Item key={user.uid} onClick={() => this.changeChannel(user)} style={{opacity: '0.7', fontStyle: 'italic'}}>
+                {users.map(user => <Menu.Item active={user.uid === activeChannel} key={user.uid} onClick={() => this.changeChannel(user)} style={{opacity: '0.7', fontStyle: 'italic'}}>
                     <Icon name="circle" className={this.isUserOnline(user) ? 'online' : 'offline'}/>
                     @ {user.name}
                 </Menu.Item>)}
